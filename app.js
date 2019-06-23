@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-app.use(express.static('index.html'));
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname + '/index.html'));
