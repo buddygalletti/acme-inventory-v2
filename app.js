@@ -14,5 +14,14 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/api/products', async (req, res, next) => {
+  try {
+    const products = Product.findAll();
+    res.send(products.json());
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Magic happening on port: ${port}`));

@@ -17,8 +17,72 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
+      const { HashRouter, Route, Link, NavLink } = ReactRouterDOM;
+
+      const Navbar = ({ products }) => {
+        return (
+          <div>
+            <Link to="/">All Products ({products.length})</Link>
+            <Link to="/INSTOCK">
+              In Stock (
+              {products.reduce(
+                (acc, product) => (product.status === 'INSTOCK' ? acc++ : acc),
+                0
+              )}
+              )
+            </Link>
+            <Link to="/BACKORDERED">
+              Backordered (
+              {products.reduce(
+                (acc, product) =>
+                  product.status === 'BACKORDERED' ? acc++ : acc,
+                0
+              )}
+              )
+            </Link>
+            <Link to="/DISCONTINUED">
+              Discontinued (
+              {products.reduce(
+                (acc, product) =>
+                  product.status === 'DISCONTINUED' ? acc++ : acc,
+                0
+              )}
+              )
+            </Link>
+          </div>
+        );
+      };
+
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            products: []
+          };
+        }
+
+        // async componentDidMount() {
+        //   try {
+        //     const response = await axios.get('/api/products');
+        //     const products = response.data;
+        //     this.setState({ products });
+        //   } catch (ex) {
+        //     console.log(ex);
+        //   }
+        // }
+
+        render() {
+          const { products } = this.state;
+          return (
+            <HashRouter>
+              <Navbar products={products} />
+            </HashRouter>
+          );
+        }
+      }
+
       const root = document.querySelector('#root');
-      ReactDOM.render(<hr />, root);
+      ReactDOM.render(<App />, root);
     </script>
   </body>
 </html>
