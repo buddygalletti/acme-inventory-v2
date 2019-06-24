@@ -39,10 +39,8 @@ const syncAndSeed = async () => {
         return Product.create(product);
       })
     );
-    db.close();
   } catch (ex) {
     console.log(ex);
-    db.close();
   }
 };
 
