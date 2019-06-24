@@ -1,6 +1,25 @@
 <html>
   <head>
-    <style></style>
+    <style>
+      .product-div {
+        border: 1px solid dodgerblue;
+        border-radius: 25px;
+        margin: 2em;
+      }
+      .product-div > * {
+        padding: 20px;
+      }
+      select {
+        margin: 20px;
+      }
+      #navbar {
+        display: flex;
+        justify-content: space-around;
+      }
+      #navbar > a {
+        padding: 20px;
+      }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script
@@ -20,36 +39,47 @@
       const { HashRouter, Route, Link, NavLink } = ReactRouterDOM;
 
       const Navbar = ({ products }) => {
+        const activeStyle = {
+          backgroundColor: 'dodgerblue',
+          color: 'white',
+          borderRadius: '20px',
+          textDecoration: 'none'
+        };
         return (
-          <div>
-            <h1>ACME Inventory</h1>
-            <Link to="/">All Products ({products.length})</Link>
-            <Link to="/INSTOCK">
+          <div id="navbar">
+            <NavLink to="/" exact activeStyle={activeStyle}>
+              All Products ({products.length})
+            </NavLink>
+            <NavLink to="/INSTOCK" activeStyle={activeStyle}>
               In Stock (
-              {products.reduce(
-                (acc, product) => (product.status === 'INSTOCK' ? acc++ : acc),
-                0
-              )}
+              {products.reduce((acc, product) => {
+                if (product.status === 'INSTOCK') {
+                  return (acc += 1);
+                }
+                return acc;
+              }, 0)}
               )
-            </Link>
-            <Link to="/BACKORDERED">
+            </NavLink>
+            <NavLink to="/BACKORDERED" activeStyle={activeStyle}>
               Backordered (
-              {products.reduce(
-                (acc, product) =>
-                  product.status === 'BACKORDERED' ? acc++ : acc,
-                0
-              )}
+              {products.reduce((acc, product) => {
+                if (product.status === 'BACKORDERED') {
+                  return (acc += 1);
+                }
+                return acc;
+              }, 0)}
               )
-            </Link>
-            <Link to="/DISCONTINUED">
+            </NavLink>
+            <NavLink to="/DISCONTINUED" activeStyle={activeStyle}>
               Discontinued (
-              {products.reduce(
-                (acc, product) =>
-                  product.status === 'DISCONTINUED' ? acc++ : acc,
-                0
-              )}
+              {products.reduce((acc, product) => {
+                if (product.status === 'DISCONTINUED') {
+                  return (acc += 1);
+                }
+                return acc;
+              }, 0)}
               )
-            </Link>
+            </NavLink>
           </div>
         );
       };
@@ -98,6 +128,7 @@
           const { products } = this.state;
           return (
             <HashRouter>
+              <h1>ACME Inventory</h1>
               <Navbar products={products} />
               <Route
                 path="/"

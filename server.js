@@ -31,7 +31,7 @@ sampleProducts = [
   },
   {
     name: 'prod4',
-    status: 'DISCONTINUED'
+    status: 'BACKORDERED'
   }
 ];
 
