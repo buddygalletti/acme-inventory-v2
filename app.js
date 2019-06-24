@@ -16,12 +16,12 @@ app.get('/', (req, res, next) => {
 
 app.get('/api/products', async (req, res, next) => {
   try {
-    const products = Product.findAll();
-    res.send(products.json());
+    const products = await Product.findAll();
+    res.send(products);
   } catch (ex) {
     next(ex);
   }
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Magic happening on port: ${port}`));
+app.listen(port, () => console.log(`listening on port: ${port}`));

@@ -61,15 +61,15 @@
           };
         }
 
-        // async componentDidMount() {
-        //   try {
-        //     const response = await axios.get('/api/products');
-        //     const products = response.data;
-        //     this.setState({ products });
-        //   } catch (ex) {
-        //     console.log(ex);
-        //   }
-        // }
+        async componentDidMount() {
+          try {
+            const response = await axios.get('/api/products');
+            const products = await response.data;
+            this.setState({ products });
+          } catch (ex) {
+            console.log(ex);
+          }
+        }
 
         render() {
           const { products } = this.state;
