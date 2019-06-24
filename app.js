@@ -23,5 +23,18 @@ app.get('/api/products', async (req, res, next) => {
   }
 });
 
+app.put('/api/products/:id', async (req, res, next) => {
+  try {
+    const product = await Products.findByPk(req.params.id * 1);
+    await product.update({
+      status: req.body.status
+    });
+    res.status(201);
+    res.send(product);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on port: ${port}`));

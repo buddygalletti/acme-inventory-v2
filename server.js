@@ -28,6 +28,10 @@ sampleProducts = [
   {
     name: 'prod3',
     status: 'DISCONTINUED'
+  },
+  {
+    name: 'prod4',
+    status: 'DISCONTINUED'
   }
 ];
 

@@ -22,6 +22,7 @@
       const Navbar = ({ products }) => {
         return (
           <div>
+            <h1>ACME Inventory</h1>
             <Link to="/">All Products ({products.length})</Link>
             <Link to="/INSTOCK">
               In Stock (
@@ -53,6 +54,28 @@
         );
       };
 
+      const AllProducts = props => {
+        const { products } = props;
+        console.log(products);
+        return (
+          <div id="product-container">
+            {products.map(product => {
+              return (
+                <div className="product-div" key={product.name}>
+                  <h3>{product.name}</h3>
+                  <p>Updated on {Date(product.updatedAt)}</p>
+                  <select defaultValue={product.status}>
+                    <option>INSTOCK</option>
+                    <option>BACKORDERED</option>
+                    <option>DISCONTINUED</option>
+                  </select>
+                </div>
+              );
+            })}
+          </div>
+        );
+      };
+
       class App extends React.Component {
         constructor() {
           super();
@@ -76,6 +99,11 @@
           return (
             <HashRouter>
               <Navbar products={products} />
+              <Route
+                path="/"
+                exact
+                render={() => <AllProducts products={products} />}
+              />
             </HashRouter>
           );
         }
