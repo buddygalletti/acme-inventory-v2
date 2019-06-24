@@ -85,8 +85,7 @@
       };
 
       const AllProducts = props => {
-        const { products } = props;
-        console.log(products);
+        const { products, onChange } = props;
         return (
           <div id="product-container">
             {products.map(product => {
@@ -94,7 +93,10 @@
                 <div className="product-div" key={product.name}>
                   <h3>{product.name}</h3>
                   <p>Updated on {Date(product.updatedAt)}</p>
-                  <select defaultValue={product.status}>
+                  <select
+                    defaultValue={product.status}
+                    onChange={event => onChange(product, event.target.value)}
+                  >
                     <option>INSTOCK</option>
                     <option>BACKORDERED</option>
                     <option>DISCONTINUED</option>
@@ -184,6 +186,7 @@
           this.state = {
             products: []
           };
+          this.onChange = this.onChange.bind(this);
         }
 
         async componentDidMount() {
@@ -196,8 +199,21 @@
           }
         }
 
+        onChange(product, status) {
+          const products = this.state.products.map(_product => {
+            if (_product.id !== product.id) {
+              return _product;
+            }
+            console.log({ ...product, status });
+            return { ...product, status };
+          });
+          console.log(products);
+          this.setState({ products });
+        }
+
         render() {
           const { products } = this.state;
+          const { onChange } = this;
           return (
             <HashRouter>
               <h1>ACME Inventory</h1>
@@ -205,19 +221,27 @@
               <Route
                 path="/"
                 exact
-                render={() => <AllProducts products={products} />}
+                render={() => (
+                  <AllProducts products={products} onChange={onChange} />
+                )}
               />
               <Route
                 path="/INSTOCK"
-                render={() => <InStock products={products} />}
+                render={() => (
+                  <InStock products={products} onChange={onChange} />
+                )}
               />
               <Route
                 path="/BACKORDERED"
-                render={() => <Backordered products={products} />}
+                render={() => (
+                  <Backordered products={products} onChange={onChange} />
+                )}
               />
               <Route
                 path="/DISCONTINUED"
-                render={() => <Discontinued products={products} />}
+                render={() => (
+                  <Discontinued products={products} onChange={onChange} />
+                )}
               />
             </HashRouter>
           );
