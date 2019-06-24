@@ -109,7 +109,7 @@
       };
 
       const InStock = props => {
-        const { products } = props;
+        const { products, onChange } = props;
         const productsInStock = products.filter(
           product => product.status === 'INSTOCK'
         );
@@ -120,7 +120,10 @@
                 <div className="product-div" key={product.name}>
                   <h3>{product.name}</h3>
                   <p>Updated on {Date(product.updatedAt)}</p>
-                  <select defaultValue={product.status}>
+                  <select
+                    defaultValue={product.status}
+                    onChange={event => onChange(product, event.target.value)}
+                  >
                     <option>INSTOCK</option>
                     <option>BACKORDERED</option>
                     <option>DISCONTINUED</option>
@@ -133,7 +136,7 @@
       };
 
       const Backordered = props => {
-        const { products } = props;
+        const { products, onChange } = props;
         const productsBackordered = products.filter(
           product => product.status === 'BACKORDERED'
         );
@@ -144,7 +147,10 @@
                 <div className="product-div" key={product.name}>
                   <h3>{product.name}</h3>
                   <p>Updated on {Date(product.updatedAt)}</p>
-                  <select defaultValue={product.status}>
+                  <select
+                    defaultValue={product.status}
+                    onChange={event => onChange(product, event.target.value)}
+                  >
                     <option>INSTOCK</option>
                     <option>BACKORDERED</option>
                     <option>DISCONTINUED</option>
@@ -157,7 +163,7 @@
       };
 
       const Discontinued = props => {
-        const { products } = props;
+        const { products, onChange } = props;
         const productsDC = products.filter(
           product => product.status === 'DISCONTINUED'
         );
@@ -168,7 +174,10 @@
                 <div className="product-div" key={product.name}>
                   <h3>{product.name}</h3>
                   <p>Updated on {Date(product.updatedAt)}</p>
-                  <select defaultValue={product.status}>
+                  <select
+                    defaultValue={product.status}
+                    onChange={event => onChange(product, event.target.value)}
+                  >
                     <option>INSTOCK</option>
                     <option>BACKORDERED</option>
                     <option>DISCONTINUED</option>
