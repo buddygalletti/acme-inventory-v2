@@ -40,10 +40,10 @@
 
       const Navbar = ({ products }) => {
         const activeStyle = {
-          backgroundColor: 'dodgerblue',
-          color: 'white',
-          borderRadius: '20px',
-          textDecoration: 'none'
+          backgroundColor: "dodgerblue",
+          color: "white",
+          borderRadius: "20px",
+          textDecoration: "none"
         };
         return (
           <div id="navbar">
@@ -53,7 +53,7 @@
             <NavLink to="/INSTOCK" activeStyle={activeStyle}>
               In Stock (
               {products.reduce((acc, product) => {
-                if (product.status === 'INSTOCK') {
+                if (product.status === "INSTOCK") {
                   return (acc += 1);
                 }
                 return acc;
@@ -63,7 +63,7 @@
             <NavLink to="/BACKORDERED" activeStyle={activeStyle}>
               Backordered (
               {products.reduce((acc, product) => {
-                if (product.status === 'BACKORDERED') {
+                if (product.status === "BACKORDERED") {
                   return (acc += 1);
                 }
                 return acc;
@@ -73,7 +73,7 @@
             <NavLink to="/DISCONTINUED" activeStyle={activeStyle}>
               Discontinued (
               {products.reduce((acc, product) => {
-                if (product.status === 'DISCONTINUED') {
+                if (product.status === "DISCONTINUED") {
                   return (acc += 1);
                 }
                 return acc;
@@ -111,7 +111,7 @@
       const InStock = props => {
         const { products, onChange } = props;
         const productsInStock = products.filter(
-          product => product.status === 'INSTOCK'
+          product => product.status === "INSTOCK"
         );
         return (
           <div id="product-container">
@@ -138,7 +138,7 @@
       const Backordered = props => {
         const { products, onChange } = props;
         const productsBackordered = products.filter(
-          product => product.status === 'BACKORDERED'
+          product => product.status === "BACKORDERED"
         );
         return (
           <div id="product-container">
@@ -165,7 +165,7 @@
       const Discontinued = props => {
         const { products, onChange } = props;
         const productsDC = products.filter(
-          product => product.status === 'DISCONTINUED'
+          product => product.status === "DISCONTINUED"
         );
         return (
           <div id="product-container">
@@ -201,7 +201,7 @@
 
         async componentDidMount() {
           try {
-            const response = await axios.get('/api/products');
+            const response = await axios.get("/api/products");
             const products = await response.data;
             this.setState({ products });
           } catch (ex) {
@@ -218,19 +218,19 @@
           }
         }
 
-        onChange(product, status) {
+        async onChange(product, status) {
           location.hash = `/${status}`;
-          const products = this.state.products.map(_product => {
+          const products = await this.state.products.map(_product => {
             if (_product.id !== product.id) {
               return _product;
             }
             return { ...product, status };
           });
-          this.setState({ products });
-          const updatedProduct = this.state.products.find(element => {
+          await this.setState({ products });
+          const updatedProduct = await this.state.products.find(element => {
             return element.id === product.id;
           });
-          this.handleUpdate(updatedProduct);
+          await this.handleUpdate(updatedProduct);
         }
 
         render() {
@@ -270,7 +270,7 @@
         }
       }
 
-      const root = document.querySelector('#root');
+      const root = document.querySelector("#root");
       ReactDOM.render(<App />, root);
     </script>
   </body>
