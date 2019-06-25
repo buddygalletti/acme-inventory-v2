@@ -190,8 +190,8 @@
       };
 
       class App extends React.Component {
-        constructor() {
-          super();
+        constructor(props) {
+          super(props);
           this.state = {
             products: []
           };
@@ -213,11 +213,10 @@
             if (_product.id !== product.id) {
               return _product;
             }
-            console.log({ ...product, status });
             return { ...product, status };
           });
-          console.log(products);
           this.setState({ products });
+          location.hash = `/${status}`;
         }
 
         render() {
