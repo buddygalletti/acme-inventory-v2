@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 const express = require("express");
 
-const db = new Sequelize(`postgres://localhost:5432/acme_inventory`, {
-  logging: false
-});
+const db = new Sequelize(
+  process.env.DATABASE_URL || "postgres://localhost/acme_inventory"
+);
 
 const Product = db.define("product", {
   name: {
