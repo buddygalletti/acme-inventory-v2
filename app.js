@@ -26,11 +26,9 @@ app.get('/api/products', async (req, res, next) => {
 app.put('/api/products/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id * 1);
-    await product.update({
-      status: req.body.status
-    });
-    res.status(201);
-    res.send(product);
+    const status = await product.status;
+    await product.update({ status });
+    res.status(201).send(product);
   } catch (ex) {
     next(ex);
   }
