@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const { db, Product, syncAndSeed } = require('./database');
+const { Product } = require('./database');
 
 const app = express();
 
