@@ -25,7 +25,7 @@ app.get('/api/products', async (req, res, next) => {
 
 app.put('/api/products/:id', async (req, res, next) => {
   try {
-    const product = await Products.findByPk(req.params.id * 1);
+    const product = await Product.findByPk(req.params.id * 1);
     await product.update({
       status: req.body.status
     });
